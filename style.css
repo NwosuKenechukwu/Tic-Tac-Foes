@@ -136,16 +136,43 @@ body {
   background-color: #0081a7;
   color: #fed9b7;
   font-family: "Unbounded", cursive;
+  overflow: hidden;
 }
 
 nav {
-  font-size: 8rem;
+  font-size: 6rem;
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 5rem;
 }
 
-.player {
-  font-size: 2rem;
+.select-text {
+  margin-bottom: 5rem;
+}
+
+.player-select {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.select-card {
+  display: flex;
+  justify-content: center;
+  background-color: #fed9b7;
+  color: #0081a7;
+  width: auto;
+  margin-bottom: 4rem;
+}
+
+.select-card p {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem 3rem 1rem 3rem;
+}
+
+.select-card img {
+  width: 15rem;
 }
 
 .game-area {
@@ -159,6 +186,36 @@ nav {
   flex-grow: 0;
 }
 
+.ttt-button {
+  height: 3rem;
+  font-family: "Unbounded", cursive;
+  background-color: #0081a7;
+  border: #fdfcdc 1px solid;
+  color: #fed9b7;
+  cursor: pointer;
+  padding: 0.3rem 2rem;
+  transition: background-color 0.3s, padding 0s, color 0.3s;
+}
+
+.ttt-button:hover {
+  background-color: #fed9b7;
+  color: #0081a7;
+}
+
+.select-button {
+  background-color: #fed9b7;
+  border: #0081a7 1px solid;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  color: #0081a7;
+}
+
+.select-button {
+  background-color: #0081a7;
+  color: #fed9b7;
+}
+
 .new-game {
   height: 3rem;
   font-family: "Unbounded", cursive;
@@ -169,12 +226,17 @@ nav {
   padding: 0.3rem 2rem;
   transition: background-color 0.3s, padding 0s, color 0.3s;
   position: absolute;
-  bottom: -3rem;
+  bottom: 3rem;
 }
 
-.new-game:hover {
-  background-color: #fed9b7;
-  color: #0081a7;
+.player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.player-name {
+  margin-bottom: 3rem;
 }
 
 .row {

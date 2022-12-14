@@ -16,11 +16,24 @@
   </head>
   <body>
     <nav>TIC-TAC-TOE!</nav>
-
-    <div class="players"></div>
-
-    <div class="game-area">
-      <h2 class="player player1">Player 1</h2>
+    <div class="player-select">
+      <p class="select-text">Choose your Opponent!</p>
+      <div class="player-vs-bot select-card">
+        <p><img src="/img/Face-01.svg" alt="Player Icon" />Player</p>
+        <button class="ttt-button select-button">Select</button>
+        <p><img src="/img/AI-01.svg" alt="Bot Icon" />Bot</p>
+      </div>
+      <div class="player-vs-player select-card">
+        <p><img src="/img/Face-01.svg" alt="Player Icon" />Player</p>
+        <button class="ttt-button select-button">Select</button>
+        <p><img src="/img/Face-01.svg" alt="Player Icon" />Player</p>
+      </div>
+    </div>
+    <!-- <div class="game-area">
+      <div class="player">
+        <h2 class="player-name">Player 1</h2>
+        <button class="ttt-button">Change Name</button>
+      </div>
       <div class="board-container">
         <div class="row">
           <div class="grid"></div>
@@ -34,12 +47,15 @@
         </div>
         <div class="row">
           <div class="grid"></div>
-          <div class="grid">0</div>
-          <div class="grid">X</div>
+          <div class="grid"></div>
+          <div class="grid"></div>
         </div>
       </div>
-      <h2 class="player player2">Player 2</h2>
-      <button class="new-game">New Game!</button>
-    </div>
+      <div class="player">
+        <h2 class="player-name">Player 2</h2>
+        <button class="ttt-button">Change Name</button>
+      </div>
+      <button class="ttt-button new-game">New Game!</button>
+    </div> -->
   </body>
 </html>
