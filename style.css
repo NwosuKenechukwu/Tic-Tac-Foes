@@ -175,11 +175,11 @@ nav {
   width: 15rem;
 }
 
-.game-area {
-  display: flex;
+.board {
+  display: none;
+  flex-direction: row;
   justify-content: space-evenly;
-
-  flex-basis: 12rem;
+  margin-bottom: 5rem;
 }
 
 .board-container {
@@ -204,7 +204,7 @@ nav {
 
 .select-button {
   background-color: #fed9b7;
-  border: #0081a7 1px solid;
+  border: #0081a7 3px solid;
   border-top: none;
   border-right: none;
   border-left: none;
@@ -216,17 +216,14 @@ nav {
   color: #fed9b7;
 }
 
+.reset-game,
 .new-game {
-  height: 3rem;
-  font-family: "Unbounded", cursive;
-  background-color: #0081a7;
-  border: #fdfcdc 1px solid;
-  color: #fed9b7;
-  cursor: pointer;
-  padding: 0.3rem 2rem;
-  transition: background-color 0.3s, padding 0s, color 0.3s;
-  position: absolute;
-  bottom: 3rem;
+  margin: 0rem 6.8rem;
+}
+
+.reset-or-new {
+  display: none;
+  justify-content: center;
 }
 
 .player {

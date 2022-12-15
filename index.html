@@ -13,25 +13,28 @@
       rel="stylesheet"
     />
     <script defer src="/script.js"></script>
+    <nav>TIC-TAC-TOE!</nav>
   </head>
   <body>
-    <nav>TIC-TAC-TOE!</nav>
     <div class="player-select">
-      <p class="select-text">Choose your Opponent!</p>
-      <div class="player-vs-bot select-card">
+      <p class="select-text">Select your Opponent to start the game!</p>
+      <div class="select-card">
         <p><img src="/img/Face-01.svg" alt="Player Icon" />Player</p>
-        <button class="ttt-button select-button">Select</button>
+        <button class="ttt-button select-button player-vs-bot">Select</button>
         <p><img src="/img/AI-01.svg" alt="Bot Icon" />Bot</p>
       </div>
-      <div class="player-vs-player select-card">
+      <div class="select-card">
         <p><img src="/img/Face-01.svg" alt="Player Icon" />Player</p>
-        <button class="ttt-button select-button">Select</button>
+        <button class="ttt-button select-button player-vs-player">
+          Select
+        </button>
         <p><img src="/img/Face-01.svg" alt="Player Icon" />Player</p>
       </div>
     </div>
-    <!-- <div class="game-area">
+    <!-- ------------------------------------------------------ -->
+    <div class="board">
       <div class="player">
-        <h2 class="player-name">Player 1</h2>
+        <h2 class="player-name player1"></h2>
         <button class="ttt-button">Change Name</button>
       </div>
       <div class="board-container">
@@ -52,10 +55,14 @@
         </div>
       </div>
       <div class="player">
-        <h2 class="player-name">Player 2</h2>
-        <button class="ttt-button">Change Name</button>
+        <h2 class="player-name player2"></h2>
+        <button class="ttt-button bot-button">Change Name</button>
       </div>
+    </div>
+
+    <div class="reset-or-new">
+      <button class="ttt-button reset-game">Reset Game</button>
       <button class="ttt-button new-game">New Game!</button>
-    </div> -->
+    </div>
   </body>
 </html>
