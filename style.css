@@ -136,13 +136,13 @@ body {
   background-color: #0081a7;
   color: #fed9b7;
   font-family: "Unbounded", cursive;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 nav {
   font-size: 6rem;
   text-align: center;
-  margin-bottom: 5rem;
+  margin: 3rem 0rem 5rem 0rem;
 }
 
 .select-text {
@@ -233,7 +233,15 @@ nav {
 }
 
 .player-name {
+  margin-bottom: 1rem;
+}
+
+.player > button {
   margin-bottom: 3rem;
+}
+
+.sign {
+  font-size: 3rem;
 }
 
 .row {
