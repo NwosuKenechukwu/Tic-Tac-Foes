@@ -19,7 +19,7 @@ const signO = document.querySelector(".sign-o");
 
 // ------------------------- MODULES AND FACTORIES
 
-let cells = [["", "", "", "", "", "", "", "", ""]];
+let cells = new Array(9);
 
 const displayController = (() => {})();
 
@@ -37,10 +37,11 @@ const bot = player("Tic Tac Foe", "0", false);
 
 // ------------------------- FUNCTIONS
 const clearBoard = function () {
+  cells = new Array(9);
+
   grids.forEach((grid, i) => {
     showBtns();
     grid.innerHTML = "";
-    cells[i] = "";
     if (curr.sign === "X") {
       curr.turn = true;
       next.turn = false;
@@ -81,11 +82,55 @@ const showBtns = function () {
   swapBtn.style.visibility = "visible";
 };
 
+const confirmName = function (btn) {
+  (btn.previousElementSibling.classList.contains("player1")
+    ? p1
+    : p2
+  ).textContent =
+    document.querySelector(".input-field").value === ""
+      ? "Player"
+      : document.querySelector(".input-field").value;
+  btn.textContent = "Change Name";
+};
+
+const changeName = function (btn) {
+  if (btn.previousElementSibling.classList.contains("player1")) {
+    p1.innerHTML = `<input type="text" class="input-field" />`;
+    if (p2.nextElementSibling.textContent === "OK") {
+      p2.textContent = "Player";
+      p2.nextElementSibling.textContent = "Change Name";
+    }
+  } else {
+    p2.innerHTML = `<input type="text" class="input-field" />`;
+    if (p1.nextElementSibling.textContent === "OK") {
+      p1.textContent = "Player";
+      p1.nextElementSibling.textContent = "Change Name";
+    }
+  }
+  document.querySelector(".input-field").focus();
+  btn.textContent = "OK";
+};
+
+const checkHorizontal = function () {
+  cells
+    .filter((_, i) => i < 3)
+    .forEach((cell, i) => {
+      if (cell === cells[i + 3] && cell === cells[i + 6]) endGame(cell);
+    });
+};
+
+const endGame = function (sign) {
+  curr.sign === sign
+    ? console.log(`${curr.name} Wins!`)
+    : console.log(`${next.name} Wins!`);
+};
+
 // -------------------------EVENT LISTENERS
 
 grids.forEach((grid, i) => {
   grid.addEventListener("click", function (e) {
     hideBtns();
+
     if (grid.textContent !== "") return;
     if (curr.turn === true) {
       curr.turn = false;
@@ -99,18 +144,13 @@ grids.forEach((grid, i) => {
       grid.innerHTML = cells[i] = next.sign;
     }
 
-    changeNameBtns.forEach((changeNameBtn) => {
-      if (changeNameBtn.textContent === "OK") {
-        (changeNameBtn.previousElementSibling.classList.contains("player1")
-          ? p1
-          : p2
-        ).textContent =
-          document.querySelector(".input-field").value === ""
-            ? "Player"
-            : document.querySelector(".input-field").value;
-        changeNameBtn.textContent = "Change Name";
-      }
-    });
+    checkHorizontal();
+
+    {
+      changeNameBtns.forEach((changeNameBtn) => {
+        if (changeNameBtn.textContent === "OK") confirmName(changeNameBtn);
+      });
+    }
   });
 });
 
@@ -162,26 +202,15 @@ selectBtns.forEach((selectBtn) => {
   });
 });
 
-changeNameBtns.forEach((changeNameBtn) => {
+changeNameBtns.forEach((changeNameBtn, i) => {
   changeNameBtn.addEventListener("click", function () {
     if (changeNameBtn.textContent === "OK") {
-      (changeNameBtn.previousElementSibling.classList.contains("player1")
-        ? p1
-        : p2
-      ).textContent =
-        document.querySelector(".input-field").value === ""
-          ? "Player"
-          : document.querySelector(".input-field").value;
-      changeNameBtn.textContent = "Change Name";
+      confirmName(changeNameBtn);
     } else if (
       changeNameBtn.previousElementSibling.classList.contains("player-name") &&
       changeNameBtn.textContent !== "OK"
     ) {
-      changeNameBtn.previousElementSibling.classList.contains("player1")
-        ? (p1.innerHTML = `<input type="text" class="input-field" />`)
-        : (p2.innerHTML = `<input type="text" class="input-field" />`);
-      document.querySelector(".input-field").focus();
-      changeNameBtn.textContent = "OK";
+      changeName(changeNameBtn);
     }
   });
 });

@@ -202,6 +202,7 @@ nav {
 
 .board-container {
   flex-grow: 0;
+  user-select: none;
 }
 
 .ttt-button {
@@ -214,6 +215,7 @@ nav {
   cursor: pointer;
   padding: 0.3rem 2rem;
   transition: background-color 0.3s, padding 0s, color 0.3s;
+  user-select: none;
 }
 
 .ttt-button:hover {
