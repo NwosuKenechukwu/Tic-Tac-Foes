@@ -238,6 +238,8 @@ const endGame = function (sign) {
   count++;
 };
 
+const botLogic = function () {};
+
 // -------------------------EVENT LISTENERS
 
 grids.forEach((grid, i) => {
