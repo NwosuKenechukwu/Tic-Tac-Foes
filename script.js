@@ -16,10 +16,13 @@ const resetOrNew = document.querySelector(".reset-or-new");
 const changeNameBtns = document.querySelectorAll(".change-name");
 const signX = document.querySelector(".sign-x");
 const signO = document.querySelector(".sign-o");
+const outcome = document.querySelector(".outcome");
+const outcomeText = document.querySelector(".outcome-text");
 
 // ------------------------- MODULES AND FACTORIES
 
 let cells = new Array(9);
+let cellIndex = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
 const displayController = (() => {})();
 
@@ -38,6 +41,7 @@ const bot = player("Tic Tac Foe", "0", false);
 // ------------------------- FUNCTIONS
 const clearBoard = function () {
   cells = new Array(9);
+  cellIndex = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   count = 0;
 
   grids.forEach((grid, i) => {
@@ -57,13 +61,16 @@ const createBoard = function (player1, player2) {
   p1.textContent = player1;
   p2.textContent = player2;
   playerSelect.style.display = "none";
+  swapBtn.style.display = resetGame.style.display = "block";
   resetOrNew.style.display = board.style.display = "flex";
+  if (curr === bot) swapSigns();
 };
 
 const reloadGame = function () {
   changeNameBtns.forEach((changeNameBtn) => {
     setName(changeNameBtn);
   });
+  outcomeText.style.display = outcome.style.display = "none";
   showBtns();
   clearBoard();
   playerSelect.style.display = "flex";
@@ -231,14 +238,38 @@ const checkDiagonal = function () {
 let count = 0;
 const endGame = function (sign) {
   if (count > 0) return;
-  curr.sign === sign
-    ? console.log(`${curr.name} Wins!`)
-    : console.log(`${next.name} Wins!`);
 
   count++;
+
+  board.style.display =
+    swapBtn.style.display =
+    resetGame.style.display =
+      "none";
+
+  outcome.style.display = "flex";
+  outcomeText.style.display = "block";
+
+  if (curr.sign === sign) {
+    outcomeText.textContent = `${curr.name} Wins! 🏆`;
+  } else if (next.sign === sign) {
+    outcomeText.textContent = `${next.name} Wins! 🏆`;
+  } else {
+    outcomeText.textContent = `It's a Draw! ⚔`;
+  }
 };
 
-const botLogic = function () {};
+const botMove = function () {
+  let randomCell = cellIndex[Math.floor(Math.random() * cellIndex.length)];
+  if (next === bot && next.sign === true) {
+    if (cells[randomCell] === undefined) {
+      next.turn = false;
+      curr.turn = true;
+      grids[randomCell].value = cells[randomCell] = next.sign;
+      grids[randomCell].innerHTML = cells[randomCell] = next.sign;
+    }
+  }
+  return randomCell;
+};
 
 // -------------------------EVENT LISTENERS
 
@@ -246,32 +277,43 @@ grids.forEach((grid, i) => {
   grid.addEventListener("click", function (e) {
     hideBtns();
 
-    // if (swapBtn.style.visibility === "hidden") {
-    //   curr =
-    // }
+    cellIndex.splice(cellIndex.indexOf(i), 1);
 
     if (grid.textContent !== "") return;
-    if (curr.turn === true) {
-      curr.turn = false;
-      next.turn = true;
-      grid.value = cells[i] = curr.sign;
-      grid.innerHTML = cells[i] = curr.sign;
-    } else {
-      next.turn = false;
-      curr.turn = true;
-      grid.value = cells[i] = next.sign;
-      grid.innerHTML = cells[i] = next.sign;
+    if (next === player2 || curr === player2) {
+      if (curr.turn === true) {
+        curr.turn = false;
+        next.turn = true;
+        grid.value = cells[i] = curr.sign;
+        grid.innerHTML = cells[i] = curr.sign;
+      } else {
+        next.turn = false;
+        curr.turn = true;
+        grid.value = cells[i] = next.sign;
+        grid.innerHTML = cells[i] = next.sign;
+      }
+    }
+
+    if (next === bot || curr === bot) {
+      if (curr.turn === true) {
+        curr.turn = false;
+        next.turn = true;
+        grid.value = cells[i] = curr.sign;
+        grid.innerHTML = cells[i] = curr.sign;
+        botMove();
+      }
     }
 
     checkVertical();
     checkHorizontal();
     checkDiagonal();
 
-    {
-      changeNameBtns.forEach((changeNameBtn) => {
-        if (changeNameBtn.textContent === "OK") confirmName(changeNameBtn);
-      });
-    }
+    if (cells.filter((cell) => cell !== undefined).length === 9 && count === 0)
+      endGame("Draw");
+
+    changeNameBtns.forEach((changeNameBtn) => {
+      if (changeNameBtn.textContent === "OK") confirmName(changeNameBtn);
+    });
   });
 });
 

@@ -289,3 +289,13 @@ nav {
   cursor: pointer;
   color: #0081a7;
 }
+
+.outcome {
+  display: none;
+  justify-content: center;
+  margin: 20rem 0rem;
+}
+
+.outcome-text {
+  font-size: 2rem;
+}
