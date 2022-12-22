@@ -42,6 +42,7 @@ const bot = player("Tic Tac Foe", "0", false);
 const clearBoard = function () {
   cells = new Array(9);
   cellIndex = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+  randomCell = cellIndex[Math.floor(Math.random() * cellIndex.length)];
   count = 0;
 
   grids.forEach((grid, i) => {
@@ -235,6 +236,12 @@ const checkDiagonal = function () {
   }
 };
 
+const checkDraw = function () {
+  if (cells.filter((cell) => cell !== undefined).length === 9 && count === 0) {
+    endGame("Draw");
+  }
+};
+
 let count = 0;
 const endGame = function (sign) {
   if (count > 0) return;
@@ -258,17 +265,23 @@ const endGame = function (sign) {
   }
 };
 
+let randomCell = cellIndex[Math.floor(Math.random() * cellIndex.length)];
 const botMove = function () {
-  let randomCell = cellIndex[Math.floor(Math.random() * cellIndex.length)];
-  if (next === bot && next.sign === true) {
+  randomCell = cellIndex[Math.floor(Math.random() * cellIndex.length)];
+  if (next === bot && next.turn === true) {
     if (cells[randomCell] === undefined) {
       next.turn = false;
       curr.turn = true;
       grids[randomCell].value = cells[randomCell] = next.sign;
       grids[randomCell].innerHTML = cells[randomCell] = next.sign;
+      cellIndex.splice(cellIndex.indexOf(randomCell), 1);
     }
+    console.log(
+      "Bot Selected: ",
+      randomCell,
+      cellIndex[randomCell] === undefined
+    );
   }
-  return randomCell;
 };
 
 // -------------------------EVENT LISTENERS
@@ -276,8 +289,7 @@ const botMove = function () {
 grids.forEach((grid, i) => {
   grid.addEventListener("click", function (e) {
     hideBtns();
-
-    cellIndex.splice(cellIndex.indexOf(i), 1);
+    console.log(randomCell);
 
     if (grid.textContent !== "") return;
     if (next === player2 || curr === player2) {
@@ -300,16 +312,28 @@ grids.forEach((grid, i) => {
         next.turn = true;
         grid.value = cells[i] = curr.sign;
         grid.innerHTML = cells[i] = curr.sign;
-        botMove();
+        cellIndex.splice(cellIndex.indexOf(i), 1);
+        console.log(
+          "Player Selected: ",
+          randomCell,
+          cellIndex[randomCell] === undefined
+        );
+        if (cells.filter((cell) => cell !== undefined).length !== 9) {
+          setTimeout(function () {
+            botMove();
+          }, 600);
+        }
       }
     }
 
-    checkVertical();
-    checkHorizontal();
-    checkDiagonal();
+    setTimeout(function () {
+      checkVertical();
+      checkHorizontal();
+      checkDiagonal();
+      checkDraw();
+    }, 610);
 
-    if (cells.filter((cell) => cell !== undefined).length === 9 && count === 0)
-      endGame("Draw");
+    console.log(cellIndex);
 
     changeNameBtns.forEach((changeNameBtn) => {
       if (changeNameBtn.textContent === "OK") confirmName(changeNameBtn);

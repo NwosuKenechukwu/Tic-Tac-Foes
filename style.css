@@ -294,6 +294,7 @@ nav {
   display: none;
   justify-content: center;
   margin: 20rem 0rem;
+  transition: all 3s;
 }
 
 .outcome-text {
