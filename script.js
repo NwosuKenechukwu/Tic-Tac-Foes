@@ -137,6 +137,11 @@ const swapSigns = function () {
     curr.turn = true;
     next.turn = false;
   }
+
+  hideBtns();
+  setTimeout(() => {
+    botMove();
+  }, 800);
 };
 
 const setName = function (btn) {
@@ -281,6 +286,19 @@ const botMove = function () {
       randomCell,
       cellIndex[randomCell] === undefined
     );
+  } else if (curr === bot && curr.turn === true) {
+    if (cells[randomCell] === undefined) {
+      curr.turn = false;
+      next.turn = true;
+      grids[randomCell].value = cells[randomCell] = curr.sign;
+      grids[randomCell].innerHTML = cells[randomCell] = curr.sign;
+      cellIndex.splice(cellIndex.indexOf(randomCell), 1);
+    }
+    console.log(
+      "Bot Selected: ",
+      randomCell,
+      cellIndex[randomCell] === undefined
+    );
   }
 };
 
@@ -307,21 +325,41 @@ grids.forEach((grid, i) => {
     }
 
     if (next === bot || curr === bot) {
-      if (curr.turn === true) {
-        curr.turn = false;
-        next.turn = true;
-        grid.value = cells[i] = curr.sign;
-        grid.innerHTML = cells[i] = curr.sign;
-        cellIndex.splice(cellIndex.indexOf(i), 1);
-        console.log(
-          "Player Selected: ",
-          randomCell,
-          cellIndex[randomCell] === undefined
-        );
-        if (cells.filter((cell) => cell !== undefined).length !== 9) {
-          setTimeout(function () {
-            botMove();
-          }, 600);
+      if (next === bot) {
+        if (curr.turn === true) {
+          curr.turn = false;
+          next.turn = true;
+          grid.value = cells[i] = curr.sign;
+          grid.innerHTML = cells[i] = curr.sign;
+          cellIndex.splice(cellIndex.indexOf(i), 1);
+          console.log(
+            "Player Selected: ",
+            randomCell,
+            cellIndex[randomCell] === undefined
+          );
+          if (cells.filter((cell) => cell !== undefined).length !== 9) {
+            setTimeout(function () {
+              botMove();
+            }, 600);
+          }
+        }
+      } else if (curr === bot) {
+        if (next.turn === true) {
+          curr.turn = true;
+          next.turn = false;
+          grid.value = cells[i] = next.sign;
+          grid.innerHTML = cells[i] = next.sign;
+          cellIndex.splice(cellIndex.indexOf(i), 1);
+          console.log(
+            "Player Selected: ",
+            randomCell,
+            cellIndex[randomCell] === undefined
+          );
+          if (cells.filter((cell) => cell !== undefined).length !== 9) {
+            setTimeout(function () {
+              botMove();
+            }, 600);
+          }
         }
       }
     }
@@ -366,6 +404,7 @@ selectBtns.forEach((selectBtn) => {
       signO.textContent = player2.sign;
       botBtn.style.visibility = "visible";
     }
+    showBtns();
   });
 });
 
