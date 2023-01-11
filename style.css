@@ -136,13 +136,13 @@ body {
   background-color: #0081a7;
   color: #fed9b7;
   font-family: "Unbounded", cursive;
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 
 nav {
   font-size: 6rem;
   text-align: center;
-  margin: 3rem 0rem 5rem 0rem;
+  margin: 1rem 0rem 5rem 0rem;
 }
 
 .select-text {
@@ -218,6 +218,37 @@ nav {
   user-select: none;
 }
 
+.diff {
+  height: 3rem;
+  width: 12rem;
+  font-family: "Unbounded", cursive;
+  background-color: #0081a7;
+  border: #fdfcdc 1px solid;
+  color: #fed9b7;
+  cursor: pointer;
+  padding: 0.3rem 0.7rem;
+  transition: background-color 0.3s, padding 0s, color 0.3s;
+  user-select: none;
+  outline: 0;
+}
+
+.diffText {
+  height: 3rem;
+  width: 10rem;
+  font-family: "Unbounded", cursive;
+  font-size: 0.7rem;
+  color: #fed9b7;
+  padding: 0.3rem 0.7rem;
+  margin-top: 2;
+  user-select: none;
+  text-align: center;
+  margin: 1.2rem 0rem;
+}
+
+option:disabled {
+  color: black;
+}
+
 .ttt-button:hover {
   background-color: #fed9b7;
   color: #0081a7;
@@ -263,7 +294,8 @@ nav {
   text-align: center;
 }
 
-.player > button {
+.player > button,
+.diff {
   margin-bottom: 3rem;
 }
 
