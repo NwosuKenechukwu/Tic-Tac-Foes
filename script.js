@@ -458,14 +458,18 @@ grids.forEach((grid, i) => {
   grid.addEventListener("click", function (e) {
     hideBtns();
 
-    if (difficulty.value === "easy" || difficulty.value === "placeholder") {
-      difficulty.value = "easy";
+    if (
+      changeNameBtns[1].previousElementSibling.textContent === "Tic Tac Foe"
+    ) {
+      if (difficulty.value === "easy" || difficulty.value === "placeholder") {
+        difficulty.value = "easy";
+      }
+      difficulty.style.display = "none";
+      difficultyText.style.display = "block";
+      difficultyText.textContent = `${
+        difficulty.value.charAt(0).toUpperCase() + difficulty.value.slice(1)
+      } Difficulty`;
     }
-    difficulty.style.display = "none";
-    difficultyText.style.display = "block";
-    difficultyText.textContent = `${
-      difficulty.value.charAt(0).toUpperCase() + difficulty.value.slice(1)
-    } Difficulty`;
 
     if (grid.textContent !== "") return;
     if (next === player2 || curr === player2) {
