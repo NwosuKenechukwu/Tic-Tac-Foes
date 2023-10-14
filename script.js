@@ -46,9 +46,11 @@ const clearBoard = function () {
   cellIndex = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   count = 0;
   winner = null;
-  difficulty.value = "placeholder";
-  difficultyText.style.display = "none";
-  difficulty.style.display = "block";
+  if (changeNameBtns[1].previousElementSibling.textContent === "Tic Tac Foe") {
+    difficulty.value = "placeholder";
+    difficultyText.style.display = "none";
+    difficulty.style.display = "block";
+  }
 
   showBtns();
 
